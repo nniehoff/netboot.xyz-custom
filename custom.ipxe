@@ -5,7 +5,7 @@
 
 goto ${menu}
 
-:ubuntu
+:nbxyz-custom
 set os Ubuntu
 clear ubuntu_version
 menu Nick's Custom Netboot
