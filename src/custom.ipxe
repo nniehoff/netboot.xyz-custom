@@ -8,8 +8,8 @@ goto ${menu}
 :ubuntu
 set os Ubuntu
 clear ubuntu_version
-menu ${os} - ${arch_a} - mirror.home.nickniehoff.net - Image Sig Checks: [${img_sigs_enabled}]
-item --gap Latest Releases
+menu Nick's Custom Netboot
+item --gap Latest Releases (w/Default Preseed default.preseed)
 item cosmic ${space} ${os} 18.10 Cosmic Cuttlefish
 item bionic ${space} ${os} 18.04 LTS Bionic Beaver
 item xenial ${space} ${os} 16.04 LTS Xenial Xerus
@@ -17,6 +17,7 @@ item trusty ${space} ${os} 14.04 LTS Trusty Tahr
 item --gap Older Releases
 item older_release ${space} Set release codename...
 choose ubuntu_version || goto ubuntu_exit
+set install_params auto=true priority=critical preseed/url=http://mirror.home.nickniehoff.net/preseeds/default.preseed
 iseq ${ubuntu_version} older_release && goto older_release ||
 goto mirrorcfg
 
@@ -53,8 +54,8 @@ set install_params priority=low
 goto deb_boot
 
 :deb_preseed
-echo -n Specify preseed URL for ${os} ${ubuntu_version}: && read preseedurl
-set install_params auto=true priority=critical preseed/url=${preseedurl}
+echo -n Specify preseed file in http://mirror.home.nickniehoff.net/preseeds for ${os} ${ubuntu_version}: && read preseedurl
+set install_params auto=true priority=critical preseed/url=http://mirror.home.nickniehoff.net/preseeds/${preseedurl}
 goto deb_boot
 
 :deb_install
